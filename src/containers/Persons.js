@@ -8,35 +8,11 @@ import AddPerson from '../components/AddPerson/AddPerson';
 import { connect } from 'react-redux';
 
 class Persons extends Component {
-    // state not needed here. in the reducer
-    // state = {
-    //     persons: []
-    // }
-
-    // logic moved to the reducer
-    // personAddedHandler = () => {
-    //     const newPerson = {
-    //         id: Math.random(), // not really unique but good enough here!
-    //         name: 'Max',
-    //         age: Math.floor(Math.random() * 40)
-    //     }
-    //     this.setState((prevState) => {
-    //         return { persons: prevState.persons.concat(newPerson) }
-    //     });
-    // }
-
-    // personDeletedHandler = (personId) => {
-    //     this.setState((prevState) => {
-    //         return { persons: prevState.persons.filter(person => person.id !== personId) }
-    //     });
-    // }
 
     render() {
         return (
             <div>
-                {/* <AddPerson personAdded={this.personAddedHandler} /> */}
                 <AddPerson personAdded={this.props.onAddPerson} />
-                {/* {this.state.persons.map(person => ( */}
                 {this.props.personsArray.map(person => (
                     <Person
                         key={person.id}
@@ -61,8 +37,8 @@ const mapStateToProps = state => {
 // anonymous function to execute when action taken
 const mapDispatchToProps = dispatch => {
     return {
-        onAddPerson: () => {
-            return dispatch({ type: actionTypes.ADD_PERSON })
+        onAddPerson: (name, age) => {
+            return dispatch({ type: actionTypes.ADD_PERSON, personData: {name: name, age: age}})
         },
         onRemovePerson: (id) => {
             return dispatch({ type: actionTypes.REMOVE_PERSON, personId: id })
